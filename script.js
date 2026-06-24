@@ -130,6 +130,20 @@ navLinks.addEventListener("click", (event) => {
   }
 });
 
+document.querySelectorAll("[data-nav-filter]").forEach((link) => {
+  link.addEventListener("click", () => {
+    const targetFilter = link.dataset.navFilter;
+    const matchingTab = Array.from(tabs).find((tab) => tab.dataset.filter === targetFilter);
+    if (matchingTab) {
+      tabs.forEach((item) => item.classList.remove("is-active"));
+      matchingTab.classList.add("is-active");
+      activeFilter = targetFilter;
+      searchInput.value = "";
+      renderProducts();
+    }
+  });
+});
+
 const observer = new IntersectionObserver((entries) => {
   entries.forEach((entry) => {
     if (entry.isIntersecting) {
